@@ -1,12 +1,6 @@
-﻿IEnumerable<string> Reads()
-{
-    while (true)
-        yield return Console.ReadLine();
-}
+﻿using static Helpers.Helpers;
 
-
-var pos = Reads()
-    .TakeWhile(s => !s.Equals(string.Empty))
+Reads()
     .Select(s => (d: s[0], c: int.Parse(s.Split(" ")[1])))
     .Aggregate(
         (x: 0, y: 0),
@@ -14,6 +8,6 @@ var pos = Reads()
             curr.d == 'u' ? (pos.x, pos.y - curr.c) :
             curr.d == 'd' ? (pos.x, pos.y + curr.c) :
             (pos.x + curr.c, pos.y)
-    );
-
-Console.WriteLine(pos.x * pos.y);
+    )
+    .Then(acc => acc.x * acc.y)
+    .Then(Console.WriteLine);
